@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .layer-box-holder {
+            width: 293px;
+            height: 192px;
+            perspective: 350px;
+            perspective-origin: 50% 50%;
+            margin: 50px 100px;
+        }
+
+        .layer-box {
+            background: red;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            transform: rotateX(38deg);
+            -webkit-transform: rotateX(38deg);
+            -webkit-backface-visibility: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer-box-holder">
+        <div class="layer-box" id="previewImage">
+        </div>
+    </div>
+    <button onclick="generate()">generate</button>
+    <script src="./node_modules/dom-to-image/dist/dom-to-image.min.js"></script>
+    <script>
+        function generate() {
+            domtoimage.toJpeg(document.getElementById('previewImage'), { quality: 0.95 })
+                .then(function (dataUrl) {
+                    var link = document.createElement('a');
+                    link.download = 'my-image-name.jpeg';
+                    link.href = dataUrl;
+                    link.click();
+                });
+        }
+
+    </script>
+</body>
+
+</html>
